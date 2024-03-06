@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="keywords" content="Gerador de senha, keywords generator" />
+		<title>Gerador de Senha</title>
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- CSS -->
+		<link rel="stylesheet" href="style.css" />
+		<!-- JS -->
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<div id="space">
+			<div class="stars"></div>
+			<div class="stars"></div>
+			<div class="stars"></div>
+			<div class="stars"></div>
+		</div>
+		<div id="container">
+			<h1>Gerador de Senha</h1>
+			<span id="text-slider"
+				>Deslize para escolher o tamanho de
+				<span id="value"></span> caracteres</span
+			>
+			<input
+				type="range"
+				name=""
+				id="slider"
+				min="8"
+				max="20"
+				value="14"
+			/>
+			<div class="buttons">
+				<button id="button" onclick="generatePassword()">
+					Gerar Senha
+				</button>
+				<button id="reset">
+					<img src="assets/reset.svg" alt="botão reset" />
+				</button>
+			</div>
+			<div
+				id="container-password"
+				onclick="copyPassword()"
+				class="container-password hide"
+			>
+				<h2>Sua senha gerada foi:</h2>
+				<div id="generator-password">
+					<span id="password"></span>
+				</div>
+				<span class="tooltip">⬆️ Clique na senha para copiá-la ⬆️</span>
+			</div>
+			<span class="dev"
+				>Desenvolvido por
+				<a href="https://www.linkedin.com/in/rog214/">Roger</a></span
+			>
+		</div>
+	</body>
+</html>
