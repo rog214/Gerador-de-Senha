@@ -31,15 +31,20 @@ function generatePassword() {
 
     pass = pass.split('').sort(() => Math.random() - 0.5).join('');
 
-
     containerPassword.classList.remove("hide");
     password.innerHTML = pass;
     novaSenha = pass;
 }
 
-function copyPassword (){
-    alert("Senha copiada com sucesso!")
-    navigator.clipboard.writeText(novaSenha);
+function copyPassword() {
+    const notification = document.createElement('div');
+    notification.textContent = "Senha copiada com sucesso!";
+    notification.classList.add('notification');
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 resetButton.addEventListener("click", function() {
