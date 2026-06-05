@@ -1,55 +1,69 @@
-let sliderElement = document.querySelector("#slider");
-let buttonElement = document.querySelector("#button");
-let resetButton = document.querySelector("#reset");
-let sizePassword = document.querySelector("#value");
-let password = document.querySelector("#password");
-let containerPassword = document.querySelector("#container-password");
+let elementoDeslizante = document.querySelector("#deslizante");
+let elementoBotao = document.querySelector("#botao");
+let botaoRedefinir = document.querySelector("#botao-redefinir");
+let tamanhoSenha = document.querySelector("#valor");
+let elementoSenha = document.querySelector("#senha");
+let conteinerSenha = document.querySelector("#conteiner-senha");
+let senhaGerada = "";
 
-
-sizePassword.innerHTML = sliderElement.value;
-slider.oninput = function(){
-    sizePassword.innerHTML = this.value;
+tamanhoSenha.innerHTML = elementoDeslizante.value;
+elementoDeslizante.oninput = function(){
+    tamanhoSenha.innerHTML = this.value;
 }
 
-function generatePassword() {
-    let upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
-    let numberChars = "0123456789";
-    let specialChars = "!@#$&";
-    let pass = "";
+function gerarSenha() {
+    let caracteresMaiusculos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let caracteresMinusculos = "abcdefghijklmnopqrstuvwxyz";
+    let caracteresNumericos = "0123456789";
+    let caracteresEspeciais = "!@#$&";
+    let senha = "";
     
-    pass += upperCaseChars.charAt(Math.floor(Math.random() * upperCaseChars.length));
-    pass += lowerCaseChars.charAt(Math.floor(Math.random() * lowerCaseChars.length));
-    pass += numberChars.charAt(Math.floor(Math.random() * numberChars.length));
-    pass += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+    senha += caracteresMaiusculos.charAt(Math.floor(Math.random() * caracteresMaiusculos.length));
+    senha += caracteresMinusculos.charAt(Math.floor(Math.random() * caracteresMinusculos.length));
+    senha += caracteresNumericos.charAt(Math.floor(Math.random() * caracteresNumericos.length));
+    senha += caracteresEspeciais.charAt(Math.floor(Math.random() * caracteresEspeciais.length));
 
-    let remainingLength = sliderElement.value - 4;
-    let charset = upperCaseChars + lowerCaseChars + numberChars + specialChars;
-    for (let i = 0; i < remainingLength; i++) {
-        pass += charset.charAt(Math.floor(Math.random() * charset.length));
+    let tamanhoRestante = elementoDeslizante.value - 4;
+    let todosCaracteres = caracteresMaiusculos + caracteresMinusculos + caracteresNumericos + caracteresEspeciais;
+    
+    for (let i = 0; i < tamanhoRestante; i++) {
+        senha += todosCaracteres.charAt(Math.floor(Math.random() * todosCaracteres.length));
     }
 
-    pass = pass.split('').sort(() => Math.random() - 0.5).join('');
+    senha = senha.split('').sort(() => Math.random() - 0.5).join('');
 
-    containerPassword.classList.remove("hide");
-    password.innerHTML = pass;
-    novaSenha = pass;
+    conteinerSenha.classList.remove("oculto");
+    elementoSenha.innerHTML = senha;
+    senhaGerada = senha;
 }
 
-function copyPassword() {
-    const notification = document.createElement('div');
-    notification.textContent = "Senha copiada com sucesso!";
-    notification.classList.add('notification');
-    document.body.appendChild(notification);
+function copiarSenha() {
+    if (!senhaGerada) return;
+    
+    let areaTexto = document.createElement("textarea");
+    areaTexto.value = senhaGerada;
+    document.body.appendChild(areaTexto);
+    areaTexto.select();
+    
+    try {
+        document.execCommand("copy");
+        
+        let notificacao = document.createElement('div');
+        notificacao.textContent = "Senha copiada com sucesso!";
+        notificacao.classList.add('notificacao');
+        document.body.appendChild(notificacao);
 
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+        setTimeout(() => {
+            notificacao.remove();
+        }, 3000);
+    } catch (erro) {
+        console.error('Falha ao copiar: ', erro);
+    }
+    
+    document.body.removeChild(areaTexto);
 }
 
-resetButton.addEventListener("click", function() {
-   
-    containerPassword.classList.add("hide");
-    password.innerHTML = "";
+botaoRedefinir.addEventListener("click", function() {
+    conteinerSenha.classList.add("oculto");
+    elementoSenha.innerHTML = "";
 });
-
